@@ -1,0 +1,38 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Custom domen qoşulduqda Netlify → Site configuration → Environment variables
+  # bölməsində SITE_URL=https://sizin-domen.az təyin edin və yenidən deploy edin.
+  # Canonical, sitemap və Open Graph linkləri avtomatik yenilənəcək.
+
+# Yönləndirmələr (trailing slash və təmiz URL-lər) build zamanı dist/_redirects
+# faylına avtomatik yazılır. Bax: scripts/build.mjs
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# Hash-li statik fayllar dəyişmir → uzunmüddətli keş
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML həmişə təzə yoxlanılsın ki, tarix yeniləmələri dərhal görünsün
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

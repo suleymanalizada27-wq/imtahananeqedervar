@@ -1,0 +1,17 @@
+{
+  "name": "imtahananeqeder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "İmtahanaNəQədər? — Azərbaycan buraxılış imtahanları üçün countdown saytı (asılılıqsız statik generasiya)",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/countdown.test.mjs",
+    "check": "node scripts/check.mjs",
+    "verify": "npm run build && npm test && npm run check",
+    "dev": "npm run build && node scripts/serve.mjs"
+  }
+}
